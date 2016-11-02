@@ -61,6 +61,7 @@
            1 - Use Article.loadAll to instanitate these rows,
            2 - invoke the function that was passed in to fectchAll */
           Article.loadAll(rows);
+          nextFunction();
         } else {
           $.getJSON('/data/hackerIpsum.json', function(responseData) {
             responseData.forEach(function(obj) {
@@ -71,11 +72,13 @@
               article.insertRecord();
             });
             webDB.execute(
-              '', // <-----TODO: query our table for articles once more
+              'SELECT * FROM articles', // <-----TODO: query our table for articles once more
               function(rows) {
                 // TODO:
                 // 1 - Use Article.loadAll to process our rows,
                 // 2 - invoke the function that was passed in to fetchAll
+                Article.loadAll(rows);
+                nextFunction();
               });
           });
         }
@@ -89,7 +92,7 @@
         {
           /* NOTE: this is an advanced admin option, so you will need to test
               out an individual query in the console */
-          'sql': '', // <---TODO: Delete an article instance from the database based on its id:
+          'sql': 'DELETE FROM articles WHERE id = ?', // <---TODO: Delete an article instance from the database based on its id:
           'data': [this.id]
         }
       ]
