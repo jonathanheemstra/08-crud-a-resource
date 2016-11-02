@@ -45,7 +45,7 @@
     webDB.execute(
       [{
         // NOTE: this method will be called elsewhere after we retrieve our JSON
-        'sql': '', // <----- TODO: complete our SQL query here, inside the quotes.
+        'sql': 'INSERT INTO articles (title, category, author, author_url, published_on, body) VALUES (?, ?, ?, ?, ?, ?);', // <----- TODO: complete our SQL query here, inside the quotes.
         'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body]
       }]
     );
@@ -53,13 +53,14 @@
 
   Article.fetchAll = function(nextFunction) {
     webDB.execute(
-      '', // <-----TODO: fill these quotes to query our table.
+      'SELECT * FROM articles', // <-----TODO: fill these quotes to query our table.
       function(rows) {
         // if we have data in the table
         if (rows.length) {
         /* TODO:
            1 - Use Article.loadAll to instanitate these rows,
            2 - invoke the function that was passed in to fectchAll */
+          Article.loadAll(rows);
         } else {
           $.getJSON('/data/hackerIpsum.json', function(responseData) {
             responseData.forEach(function(obj) {
@@ -67,6 +68,7 @@
               /* TODO:
                1 - 'insert' the newly-instantiated article in the DB:
              */
+              article.insertRecord();
             });
             webDB.execute(
               '', // <-----TODO: query our table for articles once more
@@ -139,6 +141,6 @@
   };
 
 // TODO: ensure that our table has been created.
-
+  Article.createTable();
   module.Article = Article;
 })(window);
