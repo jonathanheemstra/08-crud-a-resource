@@ -101,8 +101,9 @@
 
   Article.clearTable = function() {
     webDB.execute(
-      'DELETE ...;' // <----TODO: delete all records from the articles table.
+      'DELETE FROM articles;' // <----TODO: delete all records from the articles table.
     );
+    console.log('all data deleted');
   };
 
   Article.allAuthors = function() {
