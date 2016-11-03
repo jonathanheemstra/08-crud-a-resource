@@ -3,6 +3,8 @@
   // Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
   var articleView = {};
 
+  console.log('THIS IS articleView (line 6 - articleView.js)\n', articleView);
+
   articleView.handleAuthorFilter = function() {
     $('#author-filter').on('change', function() {
       if ($(this).val()) {
@@ -59,6 +61,7 @@
 
   articleView.renderIndexPage = function() {
     Article.allArticles.forEach(function(a){
+      console.log('THIS IS a (line 62 - articleView.js)\n', a);
       if($('#category-filter option:contains("'+ a.category + '")').length === 0) {
         $('#category-filter').append(a.toHtml($('#category-filter-template')));
       };
@@ -74,6 +77,13 @@
     articleView.setTeasers();
   };
   //TODO: uncomment me when ready!
+  console.log('THIS IS Article.fetchAll(articleView.renderIndexPage) (line 78 - articleView.js)\n', Article.fetchAll(articleView.renderIndexPage));
+
   Article.fetchAll(articleView.renderIndexPage);
+
+  console.log('THIS IS module.articleView (line 82 - articleView.js)\n', module.articleView);
   module.articleView = articleView;
+  console.log('THIS IS articleView (line 84 - articleView.js)\n', articleView);
 })(window);
+
+console.log('THIS IS window (line 87 - articleView.js)\n', window);
